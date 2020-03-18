@@ -4,7 +4,7 @@ jobs:
     docker:
       - image: circleci/elixir:1.10
           environment:
-          MIX_ENV: test
+            MIX_ENV: test
 
     steps:
       - checkout
@@ -48,11 +48,12 @@ jobs:
       - store_artifacts:
           path: cover
           destination: coverage_results
+
   dialyzer:
     docker:
       - image: circleci/elixir:1.10
           environment:
-          MIX_ENV: test
+            MIX_ENV: test
 
     steps:
       - checkout
@@ -66,7 +67,7 @@ jobs:
     docker:
       - image: circleci/elixir:1.10
           environment:
-          MIX_ENV: test
+            MIX_ENV: test
 
     steps:
       - checkout
