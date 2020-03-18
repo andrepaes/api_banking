@@ -2,10 +2,10 @@ use Mix.Config
 
 # Configure your database
 config :api_banking, ApiBanking.Repo,
-  username: "postgres",
+  username: "andre_paes",
   password: "postgres",
   database: "api_banking_dev",
-  hostname: "localhost",
+  hostname: "db",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 
