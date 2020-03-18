@@ -1,9 +1,9 @@
 <component name="libraryTable">
-  <library name="hackney" type="mix">
+  <library name="ssl_verify_fun" type="mix">
     <CLASSES />
     <JAVADOC />
     <SOURCES>
-      <root url="file://$PROJECT_DIR$/deps/hackney/src" />
+      <root url="file://$PROJECT_DIR$/deps/ssl_verify_fun/src" />
     </SOURCES>
   </library>
 </component>

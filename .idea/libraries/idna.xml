@@ -1,9 +1,9 @@
 <component name="libraryTable">
-  <library name="hackney" type="mix">
+  <library name="idna" type="mix">
     <CLASSES />
     <JAVADOC />
     <SOURCES>
-      <root url="file://$PROJECT_DIR$/deps/hackney/src" />
+      <root url="file://$PROJECT_DIR$/deps/idna/src" />
     </SOURCES>
   </library>
 </component>

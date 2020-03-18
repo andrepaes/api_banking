@@ -64,5 +64,10 @@
     <orderEntry type="library" name="earmark" level="project" />
     <orderEntry type="library" name="credo" level="project" />
     <orderEntry type="library" name="dialyxir" level="project" />
+    <orderEntry type="library" name="excoveralls" level="project" />
+    <orderEntry type="library" name="bunt" level="project" />
+    <orderEntry type="library" name="erlex" level="project" />
+    <orderEntry type="library" name="mock" level="project" />
+    <orderEntry type="library" name="meck" level="project" />
   </component>
 </module>

@@ -35,3 +35,58 @@ jobs:
             - _build
             - deps
             - ~/.mix
+  test:
+    docker:
+      - image: circleci/elixir:1.10
+
+    steps:
+      - checkout
+      - restore_cache:
+          key: deps-cache-{{ checksum "mix.lock" }}
+      - run: mix coveralls.html
+
+      - store_artifacts:
+          path: cover
+          destination: coverage_results
+  dialyzer:
+    docker:
+      - image: circleci/elixir:1.10
+          environment:
+          MIX_ENV: test
+
+    steps:
+      - checkout
+      - run: echo "$OTP_VERSION $ELIXIR_VERSION" > .version_file
+      - restore_cache:
+          keys:
+            - plt-cache-{{ checksum ".version_file" }}-{{ checksum "mix.lock" }}
+      - run: mix dialyzer --halt-exit-status
+
+  format_check:
+    docker:
+      - image: circleci/elixir:1.10
+          environment:
+          MIX_ENV: test
+
+    steps:
+      - checkout
+
+      - run: mix format --check-formatted
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - format_check:
+          requires:
+            - build
+      - generate_documentation:
+          requires:
+            - build
+      - dialyzer:
+          requires:
+            - build
+      - test:
+          requires:
+            - build
