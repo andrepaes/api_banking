@@ -1,0 +1,37 @@
+version: 2.1
+jobs:
+  build:
+    docker:
+      - image: circleci/elixir:1.10
+          environment:
+          MIX_ENV: test
+
+    steps:
+      - checkout
+
+      - run: mix local.hex --force
+      - run: mix local.rebar --force
+
+      - restore_cache:
+          key: deps-cache-{{ checksum "mix.lock" }}
+      - run: mix do deps.get, deps.compile
+      - save_cache:
+          key: deps-cache-{{ checksum "mix.lock" }}
+          paths:
+            - deps
+            - ~/.mix
+            - _build
+
+      - run: mix compile
+
+      - run: echo "$OTP_VERSION $ELIXIR_VERSION" > .version_file
+      - restore_cache:
+          keys:
+            - plt-cache-{{ checksum ".version_file" }}-{{ checksum "mix.lock" }}
+      - run: mix dialyzer --plt
+      - save_cache:
+          key: plt-cache-{{ checksum ".version_file"  }}-{{ checksum "mix.lock" }}
+          paths:
+            - _build
+            - deps
+            - ~/.mix
