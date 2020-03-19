@@ -38,6 +38,8 @@ jobs:
   test:
     docker:
     - image: circleci/elixir:1.10
+      environment:
+        MIX_ENV: test
 
     steps:
     - checkout
