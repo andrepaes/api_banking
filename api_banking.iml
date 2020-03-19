@@ -15,12 +15,17 @@
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/db_connection" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/decimal" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/dialyxir" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/earmark" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/ecto" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/ecto_sql" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/erlex" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/ex_doc" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/gettext" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/jason" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/makeup" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/makeup_elixir" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/mime" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/nimble_parsec" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/phoenix" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/phoenix_ecto" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/phoenix_pubsub" />

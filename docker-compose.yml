@@ -2,8 +2,8 @@ version: '3'
 services:
 
   app:
-    build:
-      context: .
+    build: .
+    command: sh -c "./run.sh"
     environment: 
       PGUSER: andre_paes
       PGPASSWORD: postgres
@@ -12,15 +12,16 @@ services:
       PGHOST: db
     ports:
       - "4000:4000"
+    working_dir: /app
     depends_on:
       - db
     networks:
       - backend
+    volumes:
+      - ./:/app
 
   db:
     image: postgres:latest
-    ports:
-    - "5432:5432"
     environment:
       POSTGRES_USER: andre_paes
       POSTGRES_PASSWORD: postgres
@@ -35,8 +36,6 @@ services:
 
   db1:
     image: postgres:latest
-    ports:
-      - "5432:5432"
     environment:
       POSTGRES_USER: andre_paes
       POSTGRES_PASSWORD: postgres
