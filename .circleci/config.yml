@@ -76,30 +76,12 @@ jobs:
 
       - run: mix format --check-formatted
 
-  generate_documentation:
-    docker:
-    - image: circleci/elixir:1.10
-      environment:
-        MIX_ENV: test
-
-    steps:
-      - checkout
-      - restore_cache:
-          key: deps-cache-{{ checksum "mix.lock" }}
-      - run: mix docs
-
-      - store_artifacts:
-          path: doc
-          destination: documentation
 workflows:
   version: 2
   build_and_test:
     jobs:
       - build
       - format_check:
-          requires:
-            - build
-      - generate_documentation:
           requires:
             - build
       - dialyzer:
