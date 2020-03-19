@@ -2,6 +2,7 @@
   <library name="dialyxir" type="mix">
     <CLASSES>
       <root url="file://$PROJECT_DIR$/_build/test/lib/dialyxir/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/dialyxir/ebin" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

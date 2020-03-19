@@ -1,6 +1,8 @@
 <component name="libraryTable">
   <library name="ssl_verify_fun" type="mix">
-    <CLASSES />
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/_build/test/lib/ssl_verify_fun/ebin" />
+    </CLASSES>
     <JAVADOC />
     <SOURCES>
       <root url="file://$PROJECT_DIR$/deps/ssl_verify_fun/src" />

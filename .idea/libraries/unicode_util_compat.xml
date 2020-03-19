@@ -1,6 +1,8 @@
 <component name="libraryTable">
   <library name="unicode_util_compat" type="mix">
-    <CLASSES />
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/_build/test/lib/unicode_util_compat/ebin" />
+    </CLASSES>
     <JAVADOC />
     <SOURCES>
       <root url="file://$PROJECT_DIR$/deps/unicode_util_compat/src" />

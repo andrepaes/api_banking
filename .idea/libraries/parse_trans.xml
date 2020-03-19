@@ -1,6 +1,8 @@
 <component name="libraryTable">
   <library name="parse_trans" type="mix">
-    <CLASSES />
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/_build/test/lib/parse_trans/ebin" />
+    </CLASSES>
     <JAVADOC />
     <SOURCES>
       <root url="file://$PROJECT_DIR$/deps/parse_trans/src" />

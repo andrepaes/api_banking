@@ -2,6 +2,7 @@
   <library name="bunt" type="mix">
     <CLASSES>
       <root url="file://$PROJECT_DIR$/_build/test/lib/bunt/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/bunt/ebin" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
