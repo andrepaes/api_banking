@@ -1,51 +1,58 @@
-version: 2.1
-jobs:
-  build:
-    docker:
-      - image: circleci/elixir:1.10
-        environment:
+version: 2  # use CircleCI 2.0 instead of CircleCI Classic
+jobs:  # basic units of work in a run
+  build:  # runs not using Workflows must have a `build` job as entry point
+    parallelism: 1  # run only one instance of this job
+    docker:  # run the steps with Docker
+      - image: circleci/elixir:1.10  # ...with this image as the primary container; this is where all `steps` will run
+        environment:  # environment variables for primary container
           MIX_ENV: test
-
-      - image: postgres:latest
-        environment:
+      - image: circleci/postgres:10.1-alpine  # database image
+        environment:  # environment variables for database
           POSTGRES_USER: andre_paes
-          POSTGRES_PASSWORD: postgres
           POSTGRES_DB: api_banking_test
-    steps:
-      - checkout
+          POSTGRES_PASSWORD: postgres
 
-      - run: mix local.hex --force
-      - run: mix local.rebar --force
+    working_directory: ~/app  # directory where steps will run
 
-      - restore_cache:
-          key: deps-cache-{{ checksum "mix.lock" }}
-      - run: mix do deps.get, deps.compile
-      - save_cache:
-          key: deps-cache-{{ checksum "mix.lock" }}
-          paths:
-            - deps
-            - ~/.mix
-            - _build
+    steps:  # commands that comprise the `build` job
+      - checkout  # check out source code to working directory
 
-      - run: mix compile
-  test:
-    docker:
-    - image: circleci/elixir:1.10
-      environment:
-        MIX_ENV: test
+      - run: mix local.hex --force  # install Hex locally (without prompt)
+      - run: mix local.rebar --force  # fetch a copy of rebar (without prompt)
 
-    steps:
-    - checkout
-    - restore_cache:
-        key: deps-cache-{{ checksum "mix.lock" }}
-    - run: mix ecto.migrate
-    - run: mix test
+      - restore_cache:  # restores saved mix cache
+          # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
+          keys:  # list of cache keys, in decreasing specificity
+            - v1-mix-cache-{{ .Branch }}-{{ checksum "mix.lock" }}
+            - v1-mix-cache-{{ .Branch }}
+            - v1-mix-cache
+      - restore_cache:  # restores saved build cache
+          keys:
+            - v1-build-cache-{{ .Branch }}
+            - v1-build-cache
+      - run: mix do deps.get, compile  # get updated dependencies & compile them
+      - save_cache:  # generate and store mix cache
+          key: v1-mix-cache-{{ .Branch }}-{{ checksum "mix.lock" }}
+          paths: "deps"
+      - save_cache:  # make another, less specific cache
+          key: v1-mix-cache-{{ .Branch }}
+          paths: "deps"
+      - save_cache:  # you should really save one more cache (just in case)
+          key: v1-mix-cache
+          paths: "deps"
+      - save_cache: # don't forget to save a *build* cache, too
+          key: v1-build-cache-{{ .Branch }}
+          paths: "_build"
+      - save_cache: # and one more build cache for good measure
+          key: v1-build-cache
+          paths: "_build"
 
-workflows:
-  version: 2
-  build_and_test:
-    jobs:
-      - build
-      - test:
-          requires:
-            - build
+      - run:  # special utility that stalls main process until DB is ready
+          name: Wait for DB
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+
+      - run: mix test  # run all tests in project
+
+      - store_test_results:  # upload junit test results for display in Test Summary
+          # Read more: https://circleci.com/docs/2.0/collect-test-data/
+          path: _build/test/lib/REPLACE_WITH_YOUR_APP_NAME # Replace with the name of your :app
