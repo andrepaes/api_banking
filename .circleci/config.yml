@@ -6,6 +6,11 @@ jobs:
         environment:
           MIX_ENV: test
 
+      - image: postgres:latest
+          environment:
+            POSTGRES_USER: andre_paes
+            POSTGRES_PASSWORD: postgres
+            POSTGRES_DB: api_banking_test
     steps:
       - checkout
 
