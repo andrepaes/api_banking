@@ -1,9 +1,9 @@
 <component name="libraryTable">
-  <library name="ex_doc" type="mix">
+  <library name="makeup" type="mix">
     <CLASSES />
     <JAVADOC />
     <SOURCES>
-      <root url="file://$PROJECT_DIR$/deps/ex_doc/lib" />
+      <root url="file://$PROJECT_DIR$/deps/makeup/lib" />
     </SOURCES>
   </library>
 </component>

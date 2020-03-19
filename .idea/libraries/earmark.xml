@@ -2,6 +2,9 @@
   <library name="earmark" type="mix">
     <CLASSES />
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/deps/earmark/lib" />
+      <root url="file://$PROJECT_DIR$/deps/earmark/src" />
+    </SOURCES>
   </library>
 </component>
