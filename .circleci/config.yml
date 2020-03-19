@@ -43,7 +43,11 @@ jobs:
     - checkout
     - restore_cache:
         key: deps-cache-{{ checksum "mix.lock" }}
-    - run: mix test
+    - run: mix coveralls.circle
+
+    - store_artifacts:
+        path: cover
+        destination: coverage_results
 
   dialyzer:
     docker:

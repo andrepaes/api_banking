@@ -2,10 +2,10 @@ use Mix.Config
 
 # Configure your database
 config :api_banking, ApiBanking.Repo,
-  username: "postgres",
+  username: "andre_paes",
   password: "postgres",
   database: "api_banking_test",
-  hostname: "localhost",
+  hostname: "db1",
   pool: Ecto.Adapters.SQL.Sandbox
 
 # We don't run a server during test. If one is required,

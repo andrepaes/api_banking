@@ -10,6 +10,8 @@ WORKDIR /app
 
 RUN mix local.hex --force
 
-RUN mix deps.get, compile
+RUN mix local.rebar --force
+
+RUN mix deps.get
 
 CMD ["/app/run.sh"]
