@@ -72,9 +72,6 @@ workflows:
   build_and_test:
     jobs:
       - build
-      - format_check:
-          requires:
-            - build
       - test:
           requires:
             - build
