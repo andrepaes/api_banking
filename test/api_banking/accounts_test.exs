@@ -2,60 +2,59 @@ defmodule ApiBanking.AccountsTest do
   use ApiBanking.DataCase
 
   alias ApiBanking.Accounts
+  alias ApiBanking.Users
 
   describe "accounts" do
     alias ApiBanking.Accounts.Account
 
-    @valid_attrs %{}
-    @update_attrs %{}
-    @invalid_attrs %{}
+    @valid_attrs %{
+      password: "12345678"
+    }
+
+    @invalid_attrs %{
+      password: "1234678"
+    }
+
+    @user_attrs %{
+      "name" => "André",
+      "email" => "teste@gmail.com",
+      "cpf" => "143.617.827-78",
+      "phone" => "279993292959",
+      "birthday_date" => "1993-07-06"
+    }
 
     def account_fixture(attrs \\ %{}) do
       {:ok, account} =
         attrs
         |> Enum.into(@valid_attrs)
         |> Accounts.create_account()
-
       account
     end
 
-    test "list_accounts/0 returns all accounts" do
-      account = account_fixture()
-      assert Accounts.list_accounts() == [account]
+    defp create_user() do
+      {:ok, user} = Users.create_user(@user_attrs)
+      user
     end
 
     test "get_account!/1 returns the account with given id" do
-      account = account_fixture()
-      assert Accounts.get_account!(account.id) == account
+      user = create_user()
+      account = account_fixture(%{user_id: user.id})
+      assert Map.get(Accounts.get_account!(account.id), :id) == account.id
     end
 
     test "create_account/1 with valid data creates a account" do
-      assert {:ok, %Account{} = account} = Accounts.create_account(@valid_attrs)
+      user = create_user()
+      assert {:ok, %Account{} = account} = Accounts.create_account(Map.put(@valid_attrs, :user_id, user.id))
     end
 
     test "create_account/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Accounts.create_account(@invalid_attrs)
-    end
-
-    test "update_account/2 with valid data updates the account" do
-      account = account_fixture()
-      assert {:ok, %Account{} = account} = Accounts.update_account(account, @update_attrs)
-    end
-
-    test "update_account/2 with invalid data returns error changeset" do
-      account = account_fixture()
-      assert {:error, %Ecto.Changeset{}} = Accounts.update_account(account, @invalid_attrs)
-      assert account == Accounts.get_account!(account.id)
-    end
-
-    test "delete_account/1 deletes the account" do
-      account = account_fixture()
-      assert {:ok, %Account{}} = Accounts.delete_account(account)
-      assert_raise Ecto.NoResultsError, fn -> Accounts.get_account!(account.id) end
+      user = create_user()
+      assert {:error, %Ecto.Changeset{}} = Accounts.create_account(Map.put(@invalid_attrs, :user_id, user.id))
     end
 
     test "change_account/1 returns a account changeset" do
-      account = account_fixture()
+      user = create_user()
+      account = account_fixture(%{user_id: user.id})
       assert %Ecto.Changeset{} = Accounts.change_account(account)
     end
   end

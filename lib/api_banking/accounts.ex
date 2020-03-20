@@ -38,7 +38,7 @@ defmodule ApiBanking.Accounts do
   """
   def create_account(attrs \\ %{}) do
     %Account{}
-    |> Account.create_changeset(attrs)
+    |> Account.changeset(attrs)
     |> Repo.insert()
   end
   
@@ -52,7 +52,7 @@ defmodule ApiBanking.Accounts do
 
   """
   def change_account(%Account{} = account) do
-#    Account.changeset(account, %{})
+    Account.changeset(account, %{})
   end
 
   def transfer_money(account, transfer_to) do
