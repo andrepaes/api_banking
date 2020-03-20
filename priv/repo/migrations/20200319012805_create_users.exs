@@ -1,13 +1,14 @@
 defmodule ApiBanking.Repo.Migrations.CreateUsers do
   use Ecto.Migration
+  @timestamps_opts [type: :utc_datetime]
 
   def change do
     create table(:users) do
-      add :name, :string
-      add :email, :string
-      add :cpf, :string
-      add :phone, :string
-      add :birthday_date, :date
+      add :name, :string, null: false
+      add :email, :string, null: false
+      add :cpf, :string, null: false
+      add :phone, :string, null: false
+      add :birthday_date, :date, null: false
       timestamps()
     end
 

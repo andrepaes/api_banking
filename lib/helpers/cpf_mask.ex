@@ -1,7 +1,16 @@
 defmodule Helpers.CpfMask do
-  @spec cpf_mask(String.t(), String.t()) :: String.t()
-  def cpf_mask(pattern, input) do
-    do_mask(pattern, input, "")
+  @moduledoc """
+  Provides cpf mask functions.
+
+  ## Examples
+
+      iex> Helpers.CpfMask.cpf_mask("14461782678")
+      144.617.826-78
+
+  """
+  @spec cpf_mask(String.t()) :: String.t()
+  def cpf_mask(input) do
+    do_mask("###.###.###-##", input, "")
   end
 
   @spec do_mask(String.t(), String.t(), String.t()) :: String.t()

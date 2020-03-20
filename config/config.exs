@@ -10,6 +10,10 @@ use Mix.Config
 config :api_banking,
   ecto_repos: [ApiBanking.Repo]
 
+config :api_banking, ApiBanking.Auth.GuardianAccount,
+       issuer: "api_banking",
+       secret_key: "N+QmT2eo9h4PKIhro7uW30xnrmz5LLbEQvgTUB2U/NdMbiE0sHkp7mpI/xDcHtBK"
+
 # Configures the endpoint
 config :api_banking, ApiBankingWeb.Endpoint,
   url: [host: "localhost"],

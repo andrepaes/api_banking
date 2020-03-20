@@ -5,7 +5,7 @@ config :api_banking, ApiBanking.Repo,
   username: "andre_paes",
   password: "postgres",
   database: "api_banking_dev",
-  hostname: "db",
+  hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 
@@ -17,7 +17,7 @@ config :api_banking, ApiBanking.Repo,
 # with webpack to recompile .js and .css sources.
 config :api_banking, ApiBankingWeb.Endpoint,
   http: [port: 4000],
-  debug_errors: true,
+  debug_errors: false,
   code_reloader: true,
   check_origin: false,
   watchers: []

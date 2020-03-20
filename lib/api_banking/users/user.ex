@@ -1,4 +1,7 @@
 defmodule ApiBanking.Users.User do
+  @moduledoc """
+    User schema
+  """
   use Ecto.Schema
   import Ecto.Changeset
 
@@ -29,8 +32,8 @@ defmodule ApiBanking.Users.User do
       :birthday_date
     ])
     |> validate_format(:email, ~r/@/)
-    |> unique_constraint(:cpf)
     |> update_change(:cpf, &(String.replace(&1, ~r/[^\d]/, "")))
+    |> unique_constraint(:cpf)
     |> unique_constraint(:email)
   end
 end
