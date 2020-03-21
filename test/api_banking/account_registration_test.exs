@@ -1,5 +1,5 @@
 defmodule ApiBanking.AccountRegistrationTest do
-  use ApiBanking.DataCase
+  use ApiBanking.DataCase, async: true
 
   alias ApiBanking.AccountsRegistration
 

@@ -1,5 +1,5 @@
 defmodule ApiBankingWeb.AccountControllerTest do
-  use ApiBankingWeb.ConnCase
+  use ApiBankingWeb.ConnCase, async: true
 
   alias ApiBanking.Accounts
 

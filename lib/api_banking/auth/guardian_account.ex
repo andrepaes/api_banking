@@ -7,9 +7,9 @@ defmodule ApiBanking.Auth.GuardianAccount do
   end
 
   def resource_from_claims(claims) do
-    user = claims["sub"]
-           |> Accounts.get_account!
-    {:ok, user}
+    resource = claims["sub"]
+    |> Accounts.get_account!()
+    {:ok, resource}
   end
 
 end

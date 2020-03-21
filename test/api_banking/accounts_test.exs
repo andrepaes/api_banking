@@ -1,5 +1,5 @@
 defmodule ApiBanking.AccountsTest do
-  use ApiBanking.DataCase
+  use ApiBanking.DataCase, async: true
 
   alias ApiBanking.Accounts
   alias ApiBanking.Users

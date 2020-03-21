@@ -55,9 +55,35 @@ defmodule ApiBanking.Accounts do
     Account.changeset(account, %{})
   end
 
+  @doc """
+  Transfer money
+
+  ## Examples
+
+      iex> transfer_money(account, transfer_to)
+      {:ok, %Account{}}
+
+      iex> transfer_money(account, transfer_to)
+      {:error, %Ecto.Changeset{}}
+
+  """
+
   def transfer_money(account, transfer_to) do
-    
+
   end
+
+  @doc """
+  Withdraw money
+
+  ## Examples
+
+      iex> withdraw_money(account)
+      {:ok, %Account{}}
+
+      iex> withdraw_money(account, transfer_to)
+      {:error, %Ecto.Changeset{}}
+
+  """
 
   def withdraw_money(account) do
 

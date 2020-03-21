@@ -4,7 +4,7 @@ defmodule ApiBanking.Auth.Pipeline do
       error_handler: ApiBanking.Auth.ErrorHandler,
       module: ApiBanking.Auth.GuardianAccount
 
-  plug Guardian.Plug.VerifyHeader, claims: %{"typ" => "access"}
-
-  plug Guardian.Plug.LoadResource, allow_blank: true
+  plug Guardian.Plug.VerifyHeader, realm: "Bearer"
+  plug Guardian.Plug.EnsureAuthenticated
+  plug Guardian.Plug.LoadResource
 end
