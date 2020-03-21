@@ -8,12 +8,9 @@ defmodule ApiBanking.Application do
   def start(_type, _args) do
     # List all child processes to be supervised
     children = [
-      # Start the Ecto repository
       ApiBanking.Repo,
-      # Start the endpoint when the application starts
-      ApiBankingWeb.Endpoint
-      # Starts a worker by calling: ApiBanking.Worker.start_link(arg)
-      # {ApiBanking.Worker, arg},
+      ApiBankingWeb.Endpoint,
+      {Guardian.DB.Token.SweeperServer, []}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

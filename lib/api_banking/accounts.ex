@@ -85,7 +85,7 @@ defmodule ApiBanking.Accounts do
 
   """
 
-  def withdraw_money(account) do
-
+  def withdraw_money(account, amount) do
+    {:ok, account}
   end
 end

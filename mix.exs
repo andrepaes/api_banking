@@ -48,8 +48,9 @@ defmodule ApiBanking.MixProject do
       {:excoveralls, "~> 0.10", only: :test},
       {:ex_doc, "~> 0.21", only: :dev, runtime: false},
       {:decimal, "~> 1.0"},
+      {:argon2_elixir, "~> 2.0"},
       {:guardian, "~> 2.0"},
-      {:argon2_elixir, "~> 2.0"}
+      {:guardian_db, "~> 2.0"}
     ]
   end
 

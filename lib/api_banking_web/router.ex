@@ -18,5 +18,7 @@ defmodule ApiBankingWeb.Router do
   scope "/api/v1/accounts", ApiBankingWeb do
     pipe_through [:api, :api_auth]
     post "/withdraw", AccountController, :withdraw
+    post "/transfer", AccountController, :transfer
+    post "/sign-out", AccountController, :sign_out
   end
 end

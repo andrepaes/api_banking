@@ -1,10 +1,10 @@
 defmodule ApiBankingWeb.AccountController do
   use ApiBankingWeb, :controller
 
+  alias ApiBanking.Auth
+  alias ApiBanking.Auth.GuardianAccount
   alias ApiBanking.Accounts
   alias ApiBanking.Accounts.Account
-  alias ApiBanking.Auth.GuardianAccount
-  alias ApiBanking.Auth
 
   action_fallback ApiBankingWeb.FallbackController
 
@@ -15,8 +15,14 @@ defmodule ApiBankingWeb.AccountController do
           conn
           |> render("login.json", %{account_id: account.id, token: token})
         end
-      _ -> {:error, :unauthorized}
+      {:error, msg} -> {:error, :unauthorized}
     end
+  end
+
+  def sign_out(conn, _params) do
+    conn
+    |> GuardianAccount.Plug.sign_out()
+    |> send_resp(:no_content, "")
   end
 
   def transfer(conn, %{"id" => id, "transfer_to" => transfer_to}) do
@@ -28,8 +34,8 @@ defmodule ApiBankingWeb.AccountController do
 
   def withdraw(conn, %{"amount" => amount}) do
     account = GuardianAccount.Plug.current_resource(conn)
-#    with {:ok, %Account{}} <- Accounts.withdraw_money(account) do
-#      render(conn, "show.json", account: account)
-#    end
+    with {:ok, %Account{}} <- Accounts.withdraw_money(account, amount) do
+      render(conn, "show.json", account: account)
+    end
   end
 end

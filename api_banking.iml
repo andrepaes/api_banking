@@ -25,6 +25,7 @@
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/ex_doc" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/gettext" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/guardian" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/guardian_db" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/jason" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/jose" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/makeup" />
@@ -137,5 +138,6 @@
     <orderEntry type="library" name="argon2_elixir" level="project" />
     <orderEntry type="library" name="comeonin" level="project" />
     <orderEntry type="library" name="elixir_make" level="project" />
+    <orderEntry type="library" name="guardian_db" level="project" />
   </component>
 </module>

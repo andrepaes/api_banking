@@ -9,6 +9,12 @@ defmodule ApiBankingWeb.AccountView do
     }
   end
 
+  def render("logout.json", _params) do
+    %{
+      message: "Account logged out"
+    }
+  end
+
   def render("index.json", %{accounts: accounts}) do
     %{data: render_many(accounts, AccountView, "account.json")}
   end
