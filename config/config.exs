@@ -10,11 +10,15 @@ use Mix.Config
 config :api_banking,
   ecto_repos: [ApiBanking.Repo]
 
-config :guardian, Guardian.DB,
-       repo: ApiBanking.Repo,
+#config :guardian, Guardian.DB,
+#       repo: ApiBanking.Repo,
+#       schema_name: "guardian_tokens",
+#       token_types: ["refresh_token", "access"],
+#       sweep_interval: 10
+
+config :guardian, Guardian.Cache,
        schema_name: "guardian_tokens",
-       token_types: ["refresh_token", "access"],
-       sweep_interval: 10
+       token_types: ["refresh_token", "access"]
 
 config :api_banking, ApiBanking.Auth.GuardianAccount,
        issuer: "api_banking",

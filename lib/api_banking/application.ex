@@ -10,7 +10,12 @@ defmodule ApiBanking.Application do
     children = [
       ApiBanking.Repo,
       ApiBankingWeb.Endpoint,
-      {Guardian.DB.Token.SweeperServer, []}
+      {ConCache, [
+        name: :guardian_ets,
+        ttl_check_interval: :timer.seconds(1),
+        global_ttl: :timer.minutes(10),
+        touch_on_read: true
+      ]}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

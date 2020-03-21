@@ -22,7 +22,7 @@ defmodule ApiBanking.MixProject do
   def application do
     [
       mod: {ApiBanking.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :con_cache]
     ]
   end
 
@@ -50,7 +50,7 @@ defmodule ApiBanking.MixProject do
       {:decimal, "~> 1.0"},
       {:argon2_elixir, "~> 2.0"},
       {:guardian, "~> 2.0"},
-      {:guardian_db, "~> 2.0"}
+      {:con_cache, "~> 0.13"}
     ]
   end
 

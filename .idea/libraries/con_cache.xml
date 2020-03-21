@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="con_cache" type="mix">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/_build/dev/lib/con_cache/ebin" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/deps/con_cache/lib" />
+    </SOURCES>
+  </library>
+</component>

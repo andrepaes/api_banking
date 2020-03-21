@@ -10,6 +10,7 @@
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/argon2_elixir" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/bunt" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/comeonin" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/con_cache" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/connection" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/cowboy" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/cowlib" />
@@ -59,6 +60,7 @@
       <excludeFolder url="file://$MODULE_DIR$/_build/test/lib/excoveralls" />
       <excludeFolder url="file://$MODULE_DIR$/_build/test/lib/gettext" />
       <excludeFolder url="file://$MODULE_DIR$/_build/test/lib/guardian" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/test/lib/guardian_db" />
       <excludeFolder url="file://$MODULE_DIR$/_build/test/lib/hackney" />
       <excludeFolder url="file://$MODULE_DIR$/_build/test/lib/idna" />
       <excludeFolder url="file://$MODULE_DIR$/_build/test/lib/jason" />
@@ -139,5 +141,6 @@
     <orderEntry type="library" name="comeonin" level="project" />
     <orderEntry type="library" name="elixir_make" level="project" />
     <orderEntry type="library" name="guardian_db" level="project" />
+    <orderEntry type="library" name="con_cache" level="project" />
   </component>
 </module>

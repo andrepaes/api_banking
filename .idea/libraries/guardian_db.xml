@@ -2,6 +2,7 @@
   <library name="guardian_db" type="mix">
     <CLASSES>
       <root url="file://$PROJECT_DIR$/_build/dev/lib/guardian_db/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/test/lib/guardian_db/ebin" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
