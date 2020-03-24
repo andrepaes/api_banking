@@ -1,7 +1,7 @@
 
 # ApiBanking
 
-[![AndrePaes](https://circleci.com/gh/circleci/circleci-docs.svg?style=shield)](https://circleci.com/gh/andrepaes/apibanking/)
+[![CircleCI](https://circleci.com/gh/circleci/circleci-docs.svg?style=shield)](https://circleci.com/gh/andrepaes/apibanking/)
 
 To start your Phoenix server:
 
