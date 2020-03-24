@@ -1,6 +1,8 @@
 
 # ApiBanking
 
+[![AndrePaes](https://circleci.com/gh/circleci/circleci-docs.svg?style=svg)](https://circleci.com/gh/andrepaes/apibanking/)
+
 To start your Phoenix server:
 
   * Install dependencies with `mix deps.get`
