@@ -25,4 +25,10 @@ defmodule ApiBankingWeb.FallbackController do
     |> put_status(:unauthorized)
     |> json(%{error: "Login error"})
   end
+
+  def call(conn, {:error, :unprocessable_entity, message}) do
+    conn
+    |> put_status(:unprocessable_entity)
+    |> json(%{errors: message})
+  end
 end

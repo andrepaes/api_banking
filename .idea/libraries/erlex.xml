@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="erlex" type="mix">
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/_build/test/lib/erlex/ebin" />
       <root url="file://$PROJECT_DIR$/_build/dev/lib/erlex/ebin" />
+      <root url="file://$PROJECT_DIR$/_build/test/lib/erlex/ebin" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

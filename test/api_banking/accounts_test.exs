@@ -28,10 +28,11 @@ defmodule ApiBanking.AccountsTest do
         attrs
         |> Enum.into(@valid_attrs)
         |> Accounts.create_account()
+
       account
     end
 
-    defp create_user() do
+    defp create_user do
       {:ok, user} = Users.create_user(@user_attrs)
       user
     end
@@ -44,12 +45,16 @@ defmodule ApiBanking.AccountsTest do
 
     test "create_account/1 with valid data creates a account" do
       user = create_user()
-      assert {:ok, %Account{} = account} = Accounts.create_account(Map.put(@valid_attrs, :user_id, user.id))
+
+      assert {:ok, %Account{} = account} =
+               Accounts.create_account(Map.put(@valid_attrs, :user_id, user.id))
     end
 
     test "create_account/1 with invalid data returns error changeset" do
       user = create_user()
-      assert {:error, %Ecto.Changeset{}} = Accounts.create_account(Map.put(@invalid_attrs, :user_id, user.id))
+
+      assert {:error, %Ecto.Changeset{}} =
+               Accounts.create_account(Map.put(@invalid_attrs, :user_id, user.id))
     end
 
     test "change_account/1 returns a account changeset" do

@@ -12,7 +12,12 @@ defmodule ApiBanking.MixProject do
       aliases: aliases(),
       deps: deps(),
       test_coverage: [tool: ExCoveralls],
-      preferred_cli_env: [coveralls: :test, "coveralls.detail": :test, "coveralls.post": :test, "coveralls.html": :test]
+      preferred_cli_env: [
+        coveralls: :test,
+        "coveralls.detail": :test,
+        "coveralls.post": :test,
+        "coveralls.html": :test
+      ]
     ]
   end
 
@@ -27,7 +32,7 @@ defmodule ApiBanking.MixProject do
   end
 
   # Specifies which paths to compile per environment.
-  defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(:test), do: ["lib", "test/support", "test/factories"]
   defp elixirc_paths(_), do: ["lib"]
 
   # Specifies your project dependencies.
@@ -50,7 +55,9 @@ defmodule ApiBanking.MixProject do
       {:decimal, "~> 1.0"},
       {:argon2_elixir, "~> 2.0"},
       {:guardian, "~> 2.0"},
-      {:con_cache, "~> 0.13"}
+      {:con_cache, "~> 0.13"},
+      {:ex_machina, "~> 2.3", only: :test},
+      {:brcpfcnpj, "~> 0.2.0"}
     ]
   end
 

@@ -32,7 +32,7 @@ defmodule ApiBanking.Users.User do
       :birthday_date
     ])
     |> validate_format(:email, ~r/@/)
-    |> update_change(:cpf, &(String.replace(&1, ~r/[^\d]/, "")))
+    |> update_change(:cpf, &String.replace(&1, ~r/[^\d]/, ""))
     |> validate_length(:cpf, min: 11, max: 11)
     |> unique_constraint(:cpf)
     |> unique_constraint(:email)

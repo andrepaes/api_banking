@@ -1,9 +1,6 @@
 defmodule ApiBankingWeb.AccountRegistrationControllerTest do
   use ApiBankingWeb.ConnCase
 
-  alias ApiBanking.Accounts
-  alias ApiBanking.Accounts.Account
-
   @create_attrs %{
     "name" => "André",
     "email" => "teste@gmail.com",

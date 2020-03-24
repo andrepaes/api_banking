@@ -4,8 +4,9 @@ defmodule ApiBanking.Auth do
   """
 
   import Ecto.Query, warn: false
-  alias ApiBanking.Repo
+
   alias ApiBanking.Accounts.Account
+  alias ApiBanking.Repo
 
   def authenticate_account(account_id, plain_text_password) do
     Repo.get(Account, account_id)
@@ -13,6 +14,7 @@ defmodule ApiBanking.Auth do
   end
 
   defp check_account_password(nil, _), do: {:error, "Incorrect username or password"}
+
   defp check_account_password(account, plain_text_password) do
     case Argon2.verify_pass(plain_text_password, account.password_hashed) do
       true -> {:ok, account}

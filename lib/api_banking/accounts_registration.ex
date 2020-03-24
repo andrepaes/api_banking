@@ -4,10 +4,11 @@ defmodule ApiBanking.AccountsRegistration do
   """
 
   import Ecto.Query, warn: false
-  alias Ecto.Multi
-  alias ApiBanking.Repo
+
   alias ApiBanking.Accounts
+  alias ApiBanking.Repo
   alias ApiBanking.Users
+  alias Ecto.Multi
 
   def register_account(attrs) do
     Multi.new()
@@ -18,10 +19,11 @@ defmodule ApiBanking.AccountsRegistration do
     end)
     |> Repo.transaction()
     |> case do
-         {:ok, account} ->
-           {:ok, account}
-         {:error, name, value, changes_so_far} ->
-           {:error, value}
-       end
+      {:ok, account} ->
+        {:ok, account}
+
+      {:error, name, value, changes_so_far} ->
+        {:error, value}
+    end
   end
 end

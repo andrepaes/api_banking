@@ -1,4 +1,8 @@
 defmodule ApiBanking.Auth.GuardianAccount do
+  @moduledoc """
+    This is an authentication module build for account context,
+    so it'll provide way to auth req's with account id
+  """
   use Guardian, otp_app: :api_banking
   alias ApiBanking.Accounts
 
@@ -7,8 +11,10 @@ defmodule ApiBanking.Auth.GuardianAccount do
   end
 
   def resource_from_claims(claims) do
-    resource = claims["sub"]
-    |> Accounts.get_account!()
+    resource =
+      claims["sub"]
+      |> Accounts.get_account!()
+
     {:ok, resource}
   end
 

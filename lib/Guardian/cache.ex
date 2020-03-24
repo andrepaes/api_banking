@@ -65,7 +65,7 @@ defmodule Guardian.Cache do
     key = {:_, jti, aud}
 
     @cache_id
-    |> ConCache.ets
+    |> ConCache.ets()
     |> :ets.match_object({key, :_})
   end
 
