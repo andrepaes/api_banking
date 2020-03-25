@@ -3,6 +3,9 @@ defmodule ApiBanking.Users.User do
     User schema
   """
   use Ecto.Schema
+
+  @timestamps_opts [type: :utc_datetime]
+
   import Ecto.Changeset
 
   schema "users" do

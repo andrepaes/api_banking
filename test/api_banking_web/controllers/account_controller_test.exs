@@ -149,8 +149,13 @@ defmodule ApiBankingWeb.AccountControllerTest do
       emitter = hd(accounts)
       {:ok, token, _} = GuardianAccount.encode_and_sign(emitter, %{}, token_type: :access)
 
-      for _i <- 1..10 do
-        amount = :rand.uniform(100)
+      for _i <- 1..20 do
+        amount = :rand.uniform(200)
+        emitter = Accounts.get_account!(emitter_id)
+
+        is_balance_allowed? =
+          Decimal.sub(emitter.balance, amount)
+          |> Decimal.cmp(0)
 
         transfer_req =
           conn
@@ -160,16 +165,11 @@ defmodule ApiBankingWeb.AccountControllerTest do
             "amount" => amount
           })
 
-        emitter_updated = Accounts.get_account!(emitter_id)
-
-        is_balance_allowed? =
-          Decimal.sub(emitter_updated.balance, amount)
-          |> Decimal.cmp(0)
-
         case is_balance_allowed? do
           :gt -> assert transfer_req.status == 200
           :eq -> assert transfer_req.status == 200
-          :lt -> assert transfer_req.status == 422
+          :lt ->
+            assert transfer_req.status == 422
         end
       end
     end

@@ -63,4 +63,44 @@ defmodule ApiBanking.AccountsTest do
       assert %Ecto.Changeset{} = Accounts.change_account(account)
     end
   end
+
+  describe "transactions" do
+    alias ApiBanking.Accounts.Transaction
+
+#    @valid_attrs %{}
+#    @update_attrs %{}
+#    @invalid_attrs %{}
+#
+#    def transaction_fixture(attrs \\ %{}) do
+#      {:ok, transaction} =
+#        attrs
+#        |> Enum.into(@valid_attrs)
+#        |> Accounts.create_transaction()
+#
+#      transaction
+#    end
+
+#    test "list_transactions/0 returns all transactions" do
+#      transaction = transaction_fixture()
+#      assert Accounts.list_transactions() == [transaction]
+#    end
+#
+#    test "get_transaction!/1 returns the transaction with given id" do
+#      transaction = transaction_fixture()
+#      assert Accounts.get_transaction!(transaction.id) == transaction
+#    end
+#
+#    test "create_transaction/1 with valid data creates a transaction" do
+#      assert {:ok, %Transaction{} = transaction} = Accounts.create_transaction(@valid_attrs)
+#    end
+#
+#    test "create_transaction/1 with invalid data returns error changeset" do
+#      assert {:error, %Ecto.Changeset{}} = Accounts.create_transaction(@invalid_attrs)
+#    end
+#
+#    test "change_transaction/1 returns a transaction changeset" do
+#      transaction = transaction_fixture()
+#      assert %Ecto.Changeset{} = Accounts.change_transaction(transaction)
+#    end
+  end
 end

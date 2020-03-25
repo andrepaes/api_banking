@@ -3,9 +3,9 @@ defmodule ApiBanking.Accounts.Account do
     Account schema
   """
 
-  @timestamps_opts [type: :utc_datetime]
-
   use Ecto.Schema
+
+  @timestamps_opts [type: :utc_datetime]
 
   import Ecto.Changeset
 
@@ -42,10 +42,8 @@ defmodule ApiBanking.Accounts.Account do
     |> validate_required([:amount])
     |> validate_number(:amount, greater_than_or_equal_to: 0)
     |> debit_amount()
-    |> check_constraint(:balance,
-      name: :balance_must_be_positive,
-      message: "account balance can't be negative"
-    )
+    |> validate_number(:balance, greater_than_or_equal_to: 0, message: "account balance can't be negative")
+    |> check_constraint(:balance, name: :balance_must_be_positive, message: "account balance can't be negative")
   end
 
   @doc false

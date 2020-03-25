@@ -38,7 +38,7 @@ defmodule ApiBankingWeb.AccountController do
   def withdraw(conn, %{"amount" => _} = attrs) do
     account = GuardianAccount.Plug.current_resource(conn)
 
-    with {:ok, %Account{} = account} <- Accounts.withdraw_money(account, attrs) do
+    with {:ok, %Account{} = account} <- Accounts.withdraw_money(account, attrs, true, "withdraw") do
       render(conn, "show.json", account: account)
     end
   end

@@ -69,19 +69,18 @@ defmodule ApiBanking.Accounts do
 
   """
 
-  def transfer_money(emitter, %{"transfer_to" => transfer_to, "amount" => _} = attrs) do
+  def transfer_money(emitter, %{"transfer_to" => transfer_to, "amount" => amount} = attrs) do
     receiver = get_account!(transfer_to)
 
     if emitter.id != receiver.id do
       Multi.new()
-      |> Multi.run(:withdraw, fn _repo, _ -> withdraw_money(emitter, attrs) end)
-      |> Multi.run(:deposit, fn _repo, _ -> deposit_money(receiver, attrs) end)
+      |> Multi.run(:withdraw, fn _repo, _ -> withdraw_money(emitter, attrs, false, "transfer") end)
+      |> Multi.run(:deposit, fn _repo, _ -> deposit_money(receiver, attrs, "transfer") end)
       |> Repo.transaction()
       |> case do
         {:ok, transaction} ->
           %{withdraw: emitter_updated} = transaction
-          {:ok, emitter_updated}
-
+          {:ok, emitter_updated.update}
         {:error, _name, value, _changes_so_far} ->
           {:error, value}
       end
@@ -103,15 +102,103 @@ defmodule ApiBanking.Accounts do
 
   """
 
-  def withdraw_money(account, %{"amount" => _} = attrs) do
-    account
+  def withdraw_money(account, %{"amount" => amount} = attrs, send_email \\ true, from) do
+    changeset = account
     |> Account.withdraw_changeset(attrs)
-    |> Repo.update()
+
+    Multi.new()
+    |> Multi.run(:update, fn _repo, _ -> Repo.update(changeset) end)
+    |> Multi.run(:transaction_out, fn _repo, _ -> create_transaction(%{
+      account_id: account.id,
+      type: from,
+      money_flow: "out",
+      value: amount
+    }) end)
+    |> Repo.transaction()
+    |> case do
+         {:ok, account} when send_email ->
+           IO.puts("SEND EMAIL") # the email must be sent using Task.start to not block the process
+           {:ok, account.update}
+         {:ok, account} -> {:ok, account}
+         {:error, name, value, changes_so_far} -> {:error, value}
+       end
+
   end
 
-  def deposit_money(account, %{"amount" => _} = attrs) do
-    account
+  def deposit_money(account, %{"amount" => amount} = attrs, from) do
+    changeset = account
     |> Account.deposit_changeset(attrs)
-    |> Repo.update()
+
+    Multi.new()
+    |> Multi.run(:update, fn _repo, _ -> Repo.update(changeset) end)
+    |> Multi.run(:transfer_in, fn _repo, _ -> create_transaction(%{
+      account_id: account.id,
+      type: from,
+      money_flow: "in",
+      value: amount
+    }) end)
+    |> Repo.transaction()
+  end
+
+  alias ApiBanking.Accounts.Transaction
+
+  @doc """
+  Returns the list of transactions.
+
+  ## Examples
+
+      iex> list_transactions()
+      [%Transaction{}, ...]
+
+  """
+  def list_transactions do
+    Repo.all(Transaction)
+  end
+
+  @doc """
+  Gets a single transaction.
+
+  Raises `Ecto.NoResultsError` if the Transaction does not exist.
+
+  ## Examples
+
+      iex> get_transaction!(123)
+      %Transaction{}
+
+      iex> get_transaction!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_transaction!(id), do: Repo.get!(Transaction, id)
+
+  @doc """
+  Creates a transaction.
+
+  ## Examples
+
+      iex> create_transaction(%{field: value})
+      {:ok, %Transaction{}}
+
+      iex> create_transaction(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_transaction(attrs) do
+    %Transaction{}
+    |> Transaction.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking transaction changes.
+
+  ## Examples
+
+      iex> change_transaction(transaction)
+      %Ecto.Changeset{source: %Transaction{}}
+
+  """
+  def change_transaction(%Transaction{} = transaction) do
+    Transaction.changeset(transaction, %{})
   end
 end
