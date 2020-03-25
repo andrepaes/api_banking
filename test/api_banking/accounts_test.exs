@@ -66,41 +66,59 @@ defmodule ApiBanking.AccountsTest do
 
   describe "transactions" do
     alias ApiBanking.Accounts.Transaction
+    alias ApiBanking.AccountFactory
+    defp transaction_types do
+      ["transfer", "withdraw"]
+    end
 
-#    @valid_attrs %{}
-#    @update_attrs %{}
-#    @invalid_attrs %{}
-#
-#    def transaction_fixture(attrs \\ %{}) do
-#      {:ok, transaction} =
-#        attrs
-#        |> Enum.into(@valid_attrs)
-#        |> Accounts.create_transaction()
-#
-#      transaction
-#    end
+    defp transaction_fixture() do
+      account = AccountFactory.insert(:account)
+      attrs = %{
+        account_id: account.id,
+        type: Enum.random(transaction_types()),
+        money_flow: "out",
+        value: :random.uniform(350)
+      }
+      {:ok, transaction} = Accounts.create_transaction(attrs)
+      transaction
+    end
 
-#    test "list_transactions/0 returns all transactions" do
-#      transaction = transaction_fixture()
-#      assert Accounts.list_transactions() == [transaction]
-#    end
-#
-#    test "get_transaction!/1 returns the transaction with given id" do
-#      transaction = transaction_fixture()
-#      assert Accounts.get_transaction!(transaction.id) == transaction
-#    end
-#
-#    test "create_transaction/1 with valid data creates a transaction" do
-#      assert {:ok, %Transaction{} = transaction} = Accounts.create_transaction(@valid_attrs)
-#    end
-#
-#    test "create_transaction/1 with invalid data returns error changeset" do
-#      assert {:error, %Ecto.Changeset{}} = Accounts.create_transaction(@invalid_attrs)
-#    end
-#
-#    test "change_transaction/1 returns a transaction changeset" do
-#      transaction = transaction_fixture()
-#      assert %Ecto.Changeset{} = Accounts.change_transaction(transaction)
-#    end
+    test "list_transactions/0 returns all transactions" do
+      transaction_quantity = 5
+      for _i <- 1..transaction_quantity, do: transaction_fixture()
+      assert length(Accounts.list_transactions()) == transaction_quantity
+    end
+
+    test "get_transaction!/1 returns the transaction with given id" do
+      transaction = transaction_fixture()
+      assert Accounts.get_transaction!(transaction.id) == transaction
+    end
+
+    test "create_transaction/1 with valid data creates a transaction" do
+      account = AccountFactory.insert(:account)
+      attrs = %{
+        account_id: account.id,
+        type: Enum.random(transaction_types()),
+        money_flow: "in",
+        value: :random.uniform(350)
+      }
+      assert {:ok, %Transaction{} = transaction} = Accounts.create_transaction(attrs)
+    end
+
+    test "create_transaction/1 with invalid data returns error changeset" do
+      account = AccountFactory.insert(:account)
+      attrs = %{
+        account_id: account.id,
+        type: "undefined",
+        money_flow: "undefined",
+        value: :random.uniform(350)
+      }
+      assert {:error, %Ecto.Changeset{}} = Accounts.create_transaction(attrs)
+    end
+
+    test "change_transaction/1 returns a transaction changeset" do
+      transaction = transaction_fixture()
+      assert %Ecto.Changeset{} = Accounts.change_transaction(transaction)
+    end
   end
 end

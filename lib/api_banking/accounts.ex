@@ -102,7 +102,7 @@ defmodule ApiBanking.Accounts do
 
   """
 
-  def withdraw_money(account, %{"amount" => amount} = attrs, send_email \\ true, from) do
+  def withdraw_money(account, %{"amount" => amount} = attrs, send_email \\ true, transaction_type) do
     changeset = account
     |> Account.withdraw_changeset(attrs)
 
@@ -110,7 +110,7 @@ defmodule ApiBanking.Accounts do
     |> Multi.run(:update, fn _repo, _ -> Repo.update(changeset) end)
     |> Multi.run(:transaction_out, fn _repo, _ -> create_transaction(%{
       account_id: account.id,
-      type: from,
+      type: transaction_type,
       money_flow: "out",
       value: amount
     }) end)
@@ -125,7 +125,7 @@ defmodule ApiBanking.Accounts do
 
   end
 
-  def deposit_money(account, %{"amount" => amount} = attrs, from) do
+  def deposit_money(account, %{"amount" => amount} = attrs, transaction_type) do
     changeset = account
     |> Account.deposit_changeset(attrs)
 
@@ -133,7 +133,7 @@ defmodule ApiBanking.Accounts do
     |> Multi.run(:update, fn _repo, _ -> Repo.update(changeset) end)
     |> Multi.run(:transfer_in, fn _repo, _ -> create_transaction(%{
       account_id: account.id,
-      type: from,
+      type: transaction_type,
       money_flow: "in",
       value: amount
     }) end)

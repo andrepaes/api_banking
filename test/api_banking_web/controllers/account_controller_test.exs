@@ -153,7 +153,7 @@ defmodule ApiBankingWeb.AccountControllerTest do
         amount = :rand.uniform(200)
         emitter = Accounts.get_account!(emitter_id)
 
-        is_balance_allowed? =
+        balance_signal =
           Decimal.sub(emitter.balance, amount)
           |> Decimal.cmp(0)
 
@@ -165,7 +165,7 @@ defmodule ApiBankingWeb.AccountControllerTest do
             "amount" => amount
           })
 
-        case is_balance_allowed? do
+        case balance_signal do
           :gt -> assert transfer_req.status == 200
           :eq -> assert transfer_req.status == 200
           :lt ->
