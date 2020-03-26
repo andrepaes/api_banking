@@ -1,8 +1,6 @@
 <component name="libraryTable">
   <library name="ex_machina" type="mix">
-    <CLASSES>
-      <root url="file://$PROJECT_DIR$/_build/test/lib/ex_machina/ebin" />
-    </CLASSES>
+    <CLASSES />
     <JAVADOC />
     <SOURCES>
       <root url="file://$PROJECT_DIR$/deps/ex_machina/lib" />

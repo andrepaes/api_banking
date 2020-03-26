@@ -11,7 +11,6 @@ defmodule ApiBanking.Accounts.Account do
 
   alias ApiBanking.Accounts.Account
   alias ApiBanking.Users.User
-  alias Argon2
   alias Decimal
 
   schema "accounts" do

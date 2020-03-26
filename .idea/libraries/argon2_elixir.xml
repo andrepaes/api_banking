@@ -2,7 +2,6 @@
   <library name="argon2_elixir" type="mix">
     <CLASSES>
       <root url="file://$PROJECT_DIR$/_build/dev/lib/argon2_elixir/ebin" />
-      <root url="file://$PROJECT_DIR$/_build/test/lib/argon2_elixir/ebin" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

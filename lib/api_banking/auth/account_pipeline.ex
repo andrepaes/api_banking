@@ -1,4 +1,4 @@
-defmodule ApiBanking.Auth.Pipeline do
+defmodule ApiBanking.Auth.AccountPipeline do
   @moduledoc """
     Account authentication pipeline
   """

@@ -2,7 +2,6 @@
   <library name="brcpfcnpj" type="mix">
     <CLASSES>
       <root url="file://$PROJECT_DIR$/_build/dev/lib/brcpfcnpj/ebin" />
-      <root url="file://$PROJECT_DIR$/_build/test/lib/brcpfcnpj/ebin" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

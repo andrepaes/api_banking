@@ -201,4 +201,22 @@ defmodule ApiBanking.Accounts do
   def change_transaction(%Transaction{} = transaction) do
     Transaction.changeset(transaction, %{})
   end
+
+  def get_report_transactions do
+    query =
+      from t in Transaction,
+           select: [
+             fragment("to_char(?, 'Mon') as month", t.inserted_at),
+             fragment("to_char(?, 'Year') as year", t.inserted_at),
+             fragment("to_char(?, 'Day') as day", t.inserted_at),
+             sum(t.value)
+           ],
+           where: t.i,
+           group_by: [fragment("month"), fragment("year"), fragment("day")]
+     Repo.all(query)
+  end
+
+#  def get_amount(:today) do
+#    query =
+#  end
 end

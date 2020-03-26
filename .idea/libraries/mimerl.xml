@@ -1,8 +1,6 @@
 <component name="libraryTable">
   <library name="mimerl" type="mix">
-    <CLASSES>
-      <root url="file://$PROJECT_DIR$/_build/test/lib/mimerl/ebin" />
-    </CLASSES>
+    <CLASSES />
     <JAVADOC />
     <SOURCES>
       <root url="file://$PROJECT_DIR$/deps/mimerl/src" />
