@@ -36,8 +36,8 @@ defmodule ApiBankingWeb.Router do
   end
 
   scope "/api/v1/backoffices", ApiBankingWeb do
-    pipe_through [:api_backoffice_auth]
+    pipe_through [:api, :api_backoffice_auth]
 
-
+    get "/report", Backoffices.ReportController, :report
   end
 end

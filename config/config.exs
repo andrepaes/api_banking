@@ -15,11 +15,11 @@ config :guardian, Guardian.Cache,
   token_types: ["refresh_token", "access"]
 
 config :api_banking, ApiBanking.Auth.GuardianAccount,
-  issuer: "api_banking",
+  issuer: "accounts",
   secret_key: "N+QmT2eo9h4PKIhro7uW30xnrmz5LLbEQvgTUB2U/NdMbiE0sHkp7mpI/xDcHtBK"
 
 config :api_banking, ApiBanking.Auth.GuardianBackoffice,
-       issuer: "api_banking",
+       issuer: "backoffices",
        secret_key: "/w3zkoRPtYsY0Oz1YbcUrwd/l2wfghRgfQfjQ4dVw3MtbrVyGeN0saLOSHrg3aK9"
 
 # Configures the endpoint

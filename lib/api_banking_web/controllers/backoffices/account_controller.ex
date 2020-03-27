@@ -29,6 +29,8 @@ defmodule ApiBankingWeb.Backoffices.AccountController do
   end
 
   def sign_out(conn, _params) do
-
+    conn
+    |> GuardianBackoffice.Plug.sign_out()
+    |> send_resp(:no_content, "")
   end
 end

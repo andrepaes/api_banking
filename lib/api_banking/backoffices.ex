@@ -56,12 +56,9 @@ defmodule ApiBanking.Backoffices do
   end
 
   alias ApiBanking.Backoffices.Report
+  alias ApiBanking.Accounts
 
-  def get_report do
-    Accounts.get_report_transactions()
-  end
-
-  def change_report(%Report{} = report) do
-    Report.changeset(report, %{})
+  def get_report(params) do
+    Accounts.get_transactions_report(params)
   end
 end

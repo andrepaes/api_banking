@@ -140,7 +140,9 @@ defmodule ApiBanking.Accounts do
     |> Repo.transaction()
   end
 
+  alias ApiBanking.Accounts.QueryFilters.TransactionFilters
   alias ApiBanking.Accounts.Transaction
+  alias ApiBanking.Accounts.TransactionParams
 
   @doc """
   Returns the list of transactions.
@@ -151,8 +153,19 @@ defmodule ApiBanking.Accounts do
       [%Transaction{}, ...]
 
   """
-  def list_transactions do
-    Repo.all(Transaction)
+  def get_transactions_report(params) do
+    query_params = %TransactionParams{}
+    |> TransactionParams.changeset(params)
+    |> case  do
+         %Ecto.Changeset{valid?: true, changes: changes} ->
+           total = Transaction
+           |> TransactionFilters.filter_period(changes)
+           |> where([t], t.money_flow == "out")
+           |> Repo.aggregate(:sum, :value)
+
+           {:ok, total}
+         changeset -> {:error, changeset}
+       end
   end
 
   @doc """
@@ -201,22 +214,4 @@ defmodule ApiBanking.Accounts do
   def change_transaction(%Transaction{} = transaction) do
     Transaction.changeset(transaction, %{})
   end
-
-  def get_report_transactions do
-    query =
-      from t in Transaction,
-           select: [
-             fragment("to_char(?, 'Mon') as month", t.inserted_at),
-             fragment("to_char(?, 'Year') as year", t.inserted_at),
-             fragment("to_char(?, 'Day') as day", t.inserted_at),
-             sum(t.value)
-           ],
-           where: t.i,
-           group_by: [fragment("month"), fragment("year"), fragment("day")]
-     Repo.all(query)
-  end
-
-#  def get_amount(:today) do
-#    query =
-#  end
 end
