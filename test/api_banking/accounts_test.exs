@@ -83,17 +83,6 @@ defmodule ApiBanking.AccountsTest do
       transaction
     end
 
-    test "list_transactions/0 returns all transactions" do
-      transaction_quantity = 5
-      for _i <- 1..transaction_quantity, do: transaction_fixture()
-      assert length(Accounts.list_transactions()) == transaction_quantity
-    end
-
-    test "get_transaction!/1 returns the transaction with given id" do
-      transaction = transaction_fixture()
-      assert Accounts.get_transaction!(transaction.id) == transaction
-    end
-
     test "create_transaction/1 with valid data creates a transaction" do
       account = AccountFactory.insert(:account)
       attrs = %{

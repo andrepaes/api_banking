@@ -14,7 +14,7 @@ defmodule ApiBanking.Accounts.Account do
   alias Decimal
 
   schema "accounts" do
-    field :balance, :decimal, read_after_writes: true
+    field :balance, :decimal, read_after_writes: true, default: 0
     field :password_hashed, :string
     timestamps()
     belongs_to :user, User
@@ -31,7 +31,6 @@ defmodule ApiBanking.Accounts.Account do
     |> validate_required([:password, :user_id])
     |> validate_length(:password, min: 8)
     |> put_pass_hash()
-    |> put_initial_funds()
   end
 
   @doc false

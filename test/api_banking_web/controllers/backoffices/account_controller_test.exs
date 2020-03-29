@@ -4,16 +4,13 @@ defmodule ApiBankingWeb.Backoffices.AccountControllerTest do
   alias ApiBanking.Backoffices
   alias ApiBanking.Backoffices.Account
 
-  @create_attrs %{
-    password_hashed: "some password_hashed"
+  @valid_attrs %{
+    username: "andre_paes",
+    password: "12345678"
   }
-  @update_attrs %{
-    password_hashed: "some updated password_hashed"
-  }
-  @invalid_attrs %{password_hashed: nil}
 
   def fixture(:account) do
-    {:ok, account} = Backoffices.create_account(@create_attrs)
+    {:ok, account} = Backoffices.create_account(@valid_attrs)
     account
   end
 
@@ -21,27 +18,15 @@ defmodule ApiBankingWeb.Backoffices.AccountControllerTest do
     {:ok, conn: put_req_header(conn, "accept", "application/json")}
   end
 
-  describe "create account" do
-    test "renders account when data is valid", %{conn: conn} do
-      conn = post(conn, Routes.backoffices_account_path(conn, :create), account: @create_attrs)
-      assert %{"id" => id} = json_response(conn, 201)["data"]
-
-      conn = get(conn, Routes.backoffices_account_path(conn, :show, id))
-
-      assert %{
-               "id" => id,
-               "password_hashed" => "some password_hashed"
-             } = json_response(conn, 200)["data"]
-    end
-
-    test "renders errors when data is invalid", %{conn: conn} do
-      conn = post(conn, Routes.backoffices_account_path(conn, :create), account: @invalid_attrs)
-      assert json_response(conn, 422)["errors"] != %{}
-    end
-  end
-
-  defp create_account(_) do
+  test "sign_in/2 generate a valid token when account data is correct", %{conn: conn} do
     account = fixture(:account)
-    {:ok, account: account}
+    conn =
+      post(conn, "api/v1/backoffices/sign-in", %{
+        "username" => account.username,
+        "password" => "12345678"
+      })
+    response = json_response(conn, 200)["data"]
+
+    assert Map.has_key?(response, "access_token")
   end
 end

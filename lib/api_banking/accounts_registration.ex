@@ -19,9 +19,8 @@ defmodule ApiBanking.AccountsRegistration do
     end)
     |> Repo.transaction()
     |> case do
-      {:ok, account} ->
-        {:ok, account}
-
+      {:ok, response} ->
+        {:ok, response}
       {:error, name, value, changes_so_far} ->
         {:error, value}
     end

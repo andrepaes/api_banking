@@ -1,7 +1,7 @@
 defmodule ApiBankingWeb.AccountControllerTest do
   use ApiBankingWeb.ConnCase, async: true
 
-  alias ApiBanking.AccountFactory
+    alias ApiBanking.AccountFactory
   alias ApiBanking.Accounts
   alias ApiBanking.Auth.GuardianAccount
   alias Decimal

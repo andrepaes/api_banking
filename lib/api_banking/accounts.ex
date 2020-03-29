@@ -38,9 +38,22 @@ defmodule ApiBanking.Accounts do
 
   """
   def create_account(attrs \\ %{}) do
-    %Account{}
-    |> Account.changeset(attrs)
-    |> Repo.insert()
+    Multi.new()
+    |> Multi.run(:account, fn _repo, _ ->
+      %Account{}
+      |> Account.changeset(attrs)
+      |> Repo.insert()
+    end)
+    |> Multi.run(:deposit, fn _repo, %{account: account} ->
+      deposit_money(account, %{"amount" => 1000}, "bonus_to_new_clients")
+    end)
+    |> Repo.transaction()
+    |> case do
+         {:ok, response} ->
+           {:ok, response.deposit.update}
+         {:error, _name, value, _changes_so_far} ->
+           {:error, value}
+       end
   end
 
   @doc """
@@ -78,12 +91,12 @@ defmodule ApiBanking.Accounts do
       |> Multi.run(:deposit, fn _repo, _ -> deposit_money(receiver, attrs, "transfer") end)
       |> Repo.transaction()
       |> case do
-        {:ok, transaction} ->
-          %{withdraw: emitter_updated} = transaction
-          {:ok, emitter_updated.update}
-        {:error, _name, value, _changes_so_far} ->
-          {:error, value}
-      end
+          {:ok, transaction} ->
+            %{withdraw: emitter_updated} = transaction
+            {:ok, emitter_updated.update}
+          {:error, _name, value, _changes_so_far} ->
+            {:error, value}
+        end
     else
       {:error, :unprocessable_entity, "to transfer money the emitter id's must be different"}
     end
@@ -145,11 +158,11 @@ defmodule ApiBanking.Accounts do
   alias ApiBanking.Accounts.TransactionParams
 
   @doc """
-  Returns the list of transactions.
+  Returns the total amount of transactions.
 
   ## Examples
 
-      iex> list_transactions()
+      iex> get_transactions_report()
       [%Transaction{}, ...]
 
   """
@@ -160,29 +173,13 @@ defmodule ApiBanking.Accounts do
          %Ecto.Changeset{valid?: true, changes: changes} ->
            total = Transaction
            |> TransactionFilters.filter_period(changes)
-           |> where([t], t.money_flow == "out")
+           |> where([t], t.money_flow == "out" or (t.money_flow == "in" and t.type != "transfer"))
            |> Repo.aggregate(:sum, :value)
 
            {:ok, total}
          changeset -> {:error, changeset}
        end
   end
-
-  @doc """
-  Gets a single transaction.
-
-  Raises `Ecto.NoResultsError` if the Transaction does not exist.
-
-  ## Examples
-
-      iex> get_transaction!(123)
-      %Transaction{}
-
-      iex> get_transaction!(456)
-      ** (Ecto.NoResultsError)
-
-  """
-  def get_transaction!(id), do: Repo.get!(Transaction, id)
 
   @doc """
   Creates a transaction.
