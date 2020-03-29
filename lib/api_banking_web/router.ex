@@ -28,16 +28,17 @@ defmodule ApiBankingWeb.Router do
     post "/sign-out", AccountController, :sign_out
   end
 
-  scope "/api/v1/backoffices", ApiBankingWeb.Backoffices do
+  scope "/api/v1/backoffices", ApiBankingWeb.Backoffices, as: :backoffice do
     pipe_through [:api]
 
     post "/sign-up", AccountController, :create
     post "/sign-in", AccountController, :sign_in
   end
 
-  scope "/api/v1/backoffices", ApiBankingWeb do
+  scope "/api/v1/backoffices", ApiBankingWeb, as: :backoffice do
     pipe_through [:api, :api_backoffice_auth]
 
     get "/report", Backoffices.ReportController, :report
+    post "/sign-out", AccountController, :sign_out
   end
 end

@@ -20,6 +20,8 @@ defmodule ApiBankingWeb.Backoffices.AccountView do
   end
 
   def render("account.json", %{account: account}) do
-    %{id: account.id}
+    %{
+      username: account.username
+    }
   end
 end

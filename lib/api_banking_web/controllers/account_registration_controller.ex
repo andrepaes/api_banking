@@ -9,7 +9,7 @@ defmodule ApiBankingWeb.AccountRegistrationController do
   def register(conn, account_params) do
     with {:ok, %{account: account, user: user} = data} <-
            AccountsRegistration.register_account(account_params) do
-      IO.inspect(data)
+
       conn
       |> put_status(:created)
       |> render("show.json", data)

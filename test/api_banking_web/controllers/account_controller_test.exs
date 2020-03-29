@@ -30,15 +30,16 @@ defmodule ApiBankingWeb.AccountControllerTest do
 
       {:ok, token, _} = GuardianAccount.encode_and_sign(account, %{}, token_type: :access)
 
-      conn =
+      response_conn =
         conn
         |> put_req_header("authorization", "bearer " <> token)
         |> post(Routes.account_path(conn, :sign_out))
 
-      assert Map.get(conn, :status) == 204
+      assert Map.get(response_conn, :status) == 204
 
       conn =
         conn
+        |> put_req_header("authorization", "bearer " <> token)
         |> post(Routes.account_path(conn, :sign_out))
 
       assert Map.get(conn, :status) == 401
@@ -149,28 +150,95 @@ defmodule ApiBankingWeb.AccountControllerTest do
       emitter = hd(accounts)
       {:ok, token, _} = GuardianAccount.encode_and_sign(emitter, %{}, token_type: :access)
 
-      for _i <- 1..20 do
-        amount = :rand.uniform(200)
-        emitter = Accounts.get_account!(emitter_id)
+      transfer_until_become_negative(conn, emitter_id, receiver_id, token)
+    end
 
-        balance_signal =
-          Decimal.sub(emitter.balance, amount)
-          |> Decimal.cmp(0)
+    test "withdraw/2 remove money from account", %{conn: conn} do
+      account = AccountFactory.insert(:account)
+      amount = :random.uniform(1000)
+      {:ok, token, _} = GuardianAccount.encode_and_sign(account, %{}, token_type: :access)
 
-        transfer_req =
-          conn
-          |> put_req_header("authorization", "bearer " <> token)
-          |> post(Routes.account_path(conn, :transfer), %{
-            "transfer_to" => receiver_id,
-            "amount" => amount
-          })
+      conn
+      |> put_req_header("authorization", "bearer " <> token)
+      |> post(Routes.account_path(conn, :withdraw), %{
+        "amount" => amount
+      })
 
-        case balance_signal do
-          :gt -> assert transfer_req.status == 200
-          :eq -> assert transfer_req.status == 200
-          :lt ->
-            assert transfer_req.status == 422
-        end
+        assert Decimal.sub(account.balance, amount) == Map.get(Accounts.get_account!(account.id), :balance)
+    end
+
+    test "withdraw/2 negative value", %{conn: conn} do
+      account = AccountFactory.insert(:account)
+      amount = -:random.uniform(1000)
+      {:ok, token, _} = GuardianAccount.encode_and_sign(account, %{}, token_type: :access)
+
+      withdraw_req =
+        conn
+        |> put_req_header("authorization", "bearer " <> token)
+        |> post(Routes.account_path(conn, :withdraw), %{
+          "amount" => amount
+        })
+
+      assert withdraw_req.status == 422
+    end
+
+    test "withdraw/2 until balance become negative", %{conn: conn} do
+      account = AccountFactory.insert(:account)
+
+      {:ok, token, _} = GuardianAccount.encode_and_sign(account, %{}, token_type: :access)
+      withdraw_until_become_negative(conn, account.id, token)
+    end
+
+    defp withdraw_until_become_negative(conn, account_id, token) do
+      amount = :rand.uniform(200)
+      account = Accounts.get_account!(account_id)
+
+      balance_signal =
+        Decimal.sub(account.balance, amount)
+        |> Decimal.cmp(0)
+
+      withdraw_req =
+        conn
+        |> put_req_header("authorization", "bearer " <> token)
+        |> post(Routes.account_path(conn, :withdraw), %{
+          "amount" => amount
+        })
+
+      case balance_signal do
+        :gt ->
+          assert withdraw_req.status == 200
+          withdraw_until_become_negative(conn, account_id, token)
+        :eq ->
+          assert withdraw_req.status == 200
+          withdraw_until_become_negative(conn, account_id, token)
+        :lt -> assert withdraw_req.status == 422
+      end
+    end
+
+    defp transfer_until_become_negative(conn, emitter_id, receiver_id, token) do
+      amount = :rand.uniform(200)
+      emitter = Accounts.get_account!(emitter_id)
+
+      balance_signal =
+        Decimal.sub(emitter.balance, amount)
+        |> Decimal.cmp(0)
+
+      transfer_req =
+        conn
+        |> put_req_header("authorization", "bearer " <> token)
+        |> post(Routes.account_path(conn, :transfer), %{
+          "transfer_to" => receiver_id,
+          "amount" => amount
+        })
+
+      case balance_signal do
+        :gt ->
+          assert transfer_req.status == 200
+          transfer_until_become_negative(conn, emitter_id, receiver_id, token)
+        :eq ->
+          assert transfer_req.status == 200
+          transfer_until_become_negative(conn, emitter_id, receiver_id, token)
+        :lt -> assert transfer_req.status == 422
       end
     end
   end
