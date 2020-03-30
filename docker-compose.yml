@@ -10,7 +10,7 @@ services:
       PGDATABASE: api_banking_dev
       PGPORT: 5432
       PGHOST: db
-      DB_LOCATION: db_test
+      TEST_DB: db_test
     ports:
       - "4000:4000"
     working_dir: /app
@@ -47,7 +47,8 @@ services:
     restart: always
     volumes:
       - pgdata_test:/var/lib/postgresql/data
-
+    networks:
+      - backend
 volumes:
   pgdata_test:
   pgdata_dev:
