@@ -4,6 +4,7 @@ defmodule ApiBanking.Auth.GuardianBackoffice do
     so it'll provide way to auth req's with backoffice account id
   """
   use Guardian, otp_app: :api_banking
+
   alias ApiBanking.Backoffices
 
   def subject_for_token(account, _claims) do

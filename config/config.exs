@@ -19,8 +19,8 @@ config :api_banking, ApiBanking.Auth.GuardianAccount,
   secret_key: "N+QmT2eo9h4PKIhro7uW30xnrmz5LLbEQvgTUB2U/NdMbiE0sHkp7mpI/xDcHtBK"
 
 config :api_banking, ApiBanking.Auth.GuardianBackoffice,
-       issuer: "backoffices",
-       secret_key: "/w3zkoRPtYsY0Oz1YbcUrwd/l2wfghRgfQfjQ4dVw3MtbrVyGeN0saLOSHrg3aK9"
+  issuer: "backoffices",
+  secret_key: "/w3zkoRPtYsY0Oz1YbcUrwd/l2wfghRgfQfjQ4dVw3MtbrVyGeN0saLOSHrg3aK9"
 
 # Configures the endpoint
 config :api_banking, ApiBankingWeb.Endpoint,

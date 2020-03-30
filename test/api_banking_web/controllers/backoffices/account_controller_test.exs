@@ -1,8 +1,9 @@
 defmodule ApiBankingWeb.Backoffices.AccountControllerTest do
   use ApiBankingWeb.ConnCase
 
-  alias ApiBanking.Backoffices
   alias ApiBanking.Auth.GuardianBackoffice
+  alias ApiBanking.Backoffices
+
   @valid_attrs %{
     username: "andre_paes",
     password: "12345678"
@@ -33,18 +34,20 @@ defmodule ApiBankingWeb.Backoffices.AccountControllerTest do
 
   test "sign_in/2 generate a valid token when account data is correct", %{conn: conn} do
     account = fixture(:account)
+
     conn =
       conn
       |> post(Routes.backoffice_account_path(conn, :sign_in), %{
         "username" => account.username,
         "password" => "12345678"
       })
+
     response = json_response(conn, 200)["data"]
 
     assert Map.has_key?(response, "access_token")
   end
 
-  test"sign_out/2 revoke the token", %{conn: conn} do
+  test "sign_out/2 revoke the token", %{conn: conn} do
     account = fixture(:account)
     {:ok, token, _} = GuardianBackoffice.encode_and_sign(account, %{}, token_type: :access)
 

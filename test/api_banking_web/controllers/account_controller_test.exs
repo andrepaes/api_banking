@@ -1,7 +1,7 @@
 defmodule ApiBankingWeb.AccountControllerTest do
   use ApiBankingWeb.ConnCase, async: true
 
-    alias ApiBanking.AccountFactory
+  alias ApiBanking.AccountFactory
   alias ApiBanking.Accounts
   alias ApiBanking.Auth.GuardianAccount
   alias Decimal
@@ -164,7 +164,8 @@ defmodule ApiBankingWeb.AccountControllerTest do
         "amount" => amount
       })
 
-        assert Decimal.sub(account.balance, amount) == Map.get(Accounts.get_account!(account.id), :balance)
+      assert Decimal.sub(account.balance, amount) ==
+               Map.get(Accounts.get_account!(account.id), :balance)
     end
 
     test "withdraw/2 negative value", %{conn: conn} do
@@ -208,10 +209,13 @@ defmodule ApiBankingWeb.AccountControllerTest do
         :gt ->
           assert withdraw_req.status == 200
           withdraw_until_become_negative(conn, account_id, token)
+
         :eq ->
           assert withdraw_req.status == 200
           withdraw_until_become_negative(conn, account_id, token)
-        :lt -> assert withdraw_req.status == 422
+
+        :lt ->
+          assert withdraw_req.status == 422
       end
     end
 
@@ -235,10 +239,13 @@ defmodule ApiBankingWeb.AccountControllerTest do
         :gt ->
           assert transfer_req.status == 200
           transfer_until_become_negative(conn, emitter_id, receiver_id, token)
+
         :eq ->
           assert transfer_req.status == 200
           transfer_until_become_negative(conn, emitter_id, receiver_id, token)
-        :lt -> assert transfer_req.status == 422
+
+        :lt ->
+          assert transfer_req.status == 422
       end
     end
   end

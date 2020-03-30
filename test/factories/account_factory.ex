@@ -20,7 +20,7 @@ defmodule ApiBanking.AccountFactory do
 
   def account_factory(attrs) do
     %Account{
-#      password: "12345678",
+      #      password: "12345678",
       password_hashed: Argon2.hash_pwd_salt("12345678"),
       balance: Decimal.from_float(1000.00),
       user: build(:user)

@@ -1,4 +1,7 @@
 defmodule ApiBanking.Backoffices.Account do
+  @moduledoc """
+    Backoffice account schema
+  """
   use Ecto.Schema
   import Ecto.Changeset
 

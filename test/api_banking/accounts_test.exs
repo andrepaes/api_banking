@@ -65,43 +65,50 @@ defmodule ApiBanking.AccountsTest do
   end
 
   describe "transactions" do
-    alias ApiBanking.Accounts.Transaction
     alias ApiBanking.AccountFactory
+    alias ApiBanking.Accounts.Transaction
+
     defp transaction_types do
       ["transfer", "withdraw"]
     end
 
-    defp transaction_fixture() do
+    defp transaction_fixture do
       account = AccountFactory.insert(:account)
+
       attrs = %{
         account_id: account.id,
         type: Enum.random(transaction_types()),
         money_flow: "out",
         value: :random.uniform(350)
       }
+
       {:ok, transaction} = Accounts.create_transaction(attrs)
       transaction
     end
 
     test "create_transaction/1 with valid data creates a transaction" do
       account = AccountFactory.insert(:account)
+
       attrs = %{
         account_id: account.id,
         type: Enum.random(transaction_types()),
         money_flow: "in",
         value: :random.uniform(350)
       }
+
       assert {:ok, %Transaction{} = transaction} = Accounts.create_transaction(attrs)
     end
 
     test "create_transaction/1 with invalid data returns error changeset" do
       account = AccountFactory.insert(:account)
+
       attrs = %{
         account_id: account.id,
         type: "undefined",
         money_flow: "undefined",
         value: :random.uniform(350)
       }
+
       assert {:error, %Ecto.Changeset{}} = Accounts.create_transaction(attrs)
     end
 

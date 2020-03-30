@@ -23,6 +23,7 @@ defmodule ApiBankingWeb.Backoffices.AccountController do
           conn
           |> render("login.json", %{account_id: account.id, token: token})
         end
+
       {:error, msg} ->
         {:error, :unauthorized}
     end

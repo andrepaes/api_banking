@@ -21,6 +21,7 @@ defmodule ApiBanking.AccountsRegistration do
     |> case do
       {:ok, response} ->
         {:ok, response}
+
       {:error, name, value, changes_so_far} ->
         {:error, value}
     end

@@ -9,6 +9,5 @@ defmodule ApiBanking.Repo.Migrations.CreateBackofficeAccount do
     end
 
     create unique_index(:backoffice_account, :username)
-
   end
 end

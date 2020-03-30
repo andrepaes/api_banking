@@ -40,8 +40,14 @@ defmodule ApiBanking.Accounts.Account do
     |> validate_required([:amount])
     |> validate_number(:amount, greater_than_or_equal_to: 0)
     |> debit_amount()
-    |> validate_number(:balance, greater_than_or_equal_to: 0, message: "account balance can't be negative")
-    |> check_constraint(:balance, name: :balance_must_be_positive, message: "account balance can't be negative")
+    |> validate_number(:balance,
+      greater_than_or_equal_to: 0,
+      message: "account balance can't be negative"
+    )
+    |> check_constraint(:balance,
+      name: :balance_must_be_positive,
+      message: "account balance can't be negative"
+    )
   end
 
   @doc false

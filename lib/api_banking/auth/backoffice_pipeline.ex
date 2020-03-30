@@ -4,9 +4,9 @@ defmodule ApiBanking.Auth.BackofficePipeline do
   """
 
   use Guardian.Plug.Pipeline,
-      otp_app: :api_banking,
-      error_handler: ApiBanking.Auth.ErrorHandler,
-      module: ApiBanking.Auth.GuardianBackoffice
+    otp_app: :api_banking,
+    error_handler: ApiBanking.Auth.ErrorHandler,
+    module: ApiBanking.Auth.GuardianBackoffice
 
   plug Guardian.Plug.VerifyHeader, realm: "Bearer"
   plug Guardian.Plug.EnsureAuthenticated
