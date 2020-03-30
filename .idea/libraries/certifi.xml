@@ -1,8 +1,6 @@
 <component name="libraryTable">
   <library name="certifi" type="mix">
-    <CLASSES>
-      <root url="file://$PROJECT_DIR$/_build/test/lib/certifi/ebin" />
-    </CLASSES>
+    <CLASSES />
     <JAVADOC />
     <SOURCES>
       <root url="file://$PROJECT_DIR$/deps/certifi/src" />

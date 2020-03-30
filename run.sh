@@ -16,4 +16,7 @@ if [[ -z `psql -Atqc "\\list $PGDATABASE"` ]]; then
   echo "Database $PGDATABASE created."
 fi
 
+mix deps.get
+cd deps/argon2_elixir && make clean && make
+cd ../..
 exec mix phx.server

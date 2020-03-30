@@ -1,8 +1,6 @@
 <component name="libraryTable">
   <library name="idna" type="mix">
-    <CLASSES>
-      <root url="file://$PROJECT_DIR$/_build/test/lib/idna/ebin" />
-    </CLASSES>
+    <CLASSES />
     <JAVADOC />
     <SOURCES>
       <root url="file://$PROJECT_DIR$/deps/idna/src" />
