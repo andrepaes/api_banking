@@ -188,5 +188,25 @@
     <orderEntry type="library" name="comeonin" level="project" />
     <orderEntry type="library" name="elixir_make" level="project" />
     <orderEntry type="library" name="jose" level="project" />
+    <orderEntry type="library" name="phoenix_ecto" level="project" />
+    <orderEntry type="library" name="ecto_sql" level="project" />
+    <orderEntry type="library" name="postgrex" level="project" />
+    <orderEntry type="library" name="gettext" level="project" />
+    <orderEntry type="library" name="jason" level="project" />
+    <orderEntry type="library" name="plug_cowboy" level="project" />
+    <orderEntry type="library" name="credo" level="project" />
+    <orderEntry type="library" name="dialyxir" level="project" />
+    <orderEntry type="library" name="excoveralls" level="project" />
+    <orderEntry type="library" name="ex_doc" level="project" />
+    <orderEntry type="library" name="decimal" level="project" />
+    <orderEntry type="library" name="argon2_elixir" level="project" />
+    <orderEntry type="library" name="guardian" level="project" />
+    <orderEntry type="library" name="con_cache" level="project" />
+    <orderEntry type="library" name="ex_machina" level="project" />
+    <orderEntry type="library" name="brcpfcnpj" level="project" />
+    <orderEntry type="library" name="plug" level="project" />
+    <orderEntry type="library" name="telemetry" level="project" />
+    <orderEntry type="library" name="ecto" level="project" />
+    <orderEntry type="library" name="db_connection" level="project" />
   </component>
 </module>

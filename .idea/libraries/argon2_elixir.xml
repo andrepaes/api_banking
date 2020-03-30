@@ -7,8 +7,8 @@
     <JAVADOC />
     <SOURCES>
       <root url="file://$PROJECT_DIR$/deps/argon2_elixir/lib" />
-      <root url="file://$PROJECT_DIR$/deps/argon2_elixir/c_src" />
       <root url="file://$PROJECT_DIR$/deps/argon2_elixir/priv" />
+      <root url="file://$PROJECT_DIR$/deps/argon2_elixir/c_src" />
     </SOURCES>
   </library>
 </component>
