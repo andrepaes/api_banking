@@ -4,10 +4,7 @@ defmodule ApiBanking.Accounts.QueryFilters.TransactionFilters do
     can be transformed by query params
   """
 
-  alias ApiBanking.Accounts.Transaction
-
   import Ecto.Query
-  import Ecto.Changeset
 
   def filter_period(query, %{period: period, date: date}),
     do: filter_period(query, String.to_atom(period), date)

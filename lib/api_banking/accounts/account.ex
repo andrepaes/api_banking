@@ -78,10 +78,4 @@ defmodule ApiBanking.Accounts.Account do
   end
 
   defp put_pass_hash(changeset), do: changeset
-
-  defp put_initial_funds(%Ecto.Changeset{valid?: true} = changeset) do
-    Ecto.Changeset.change(changeset, balance: Decimal.cast(1000.00))
-  end
-
-  defp put_initial_funds(changeset), do: changeset
 end
