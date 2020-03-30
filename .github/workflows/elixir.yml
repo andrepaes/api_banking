@@ -9,7 +9,7 @@ jobs:
         elixir: [1.10.1]
 
     services:
-      db:
+      db_test:
         image: postgres:latest
         env:
           POSTGRES_USER: andre_paes
