@@ -21,6 +21,7 @@ defmodule ApiBanking.Accounts.Transaction do
   def changeset(transaction, attrs) when @env == :test do
     transaction
     |> cast(attrs, [:type, :value, :money_flow, :account_id, :inserted_at])
+    |> assoc_constraint(:account)
     |> validate_required([:type, :value, :money_flow, :account_id])
     |> validate_inclusion(:type, transaction_types(), message: "this operation isn't permitted")
     |> validate_inclusion(:money_flow, money_flow_types(), message: "this flow isn't permitted")

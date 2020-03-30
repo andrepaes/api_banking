@@ -27,7 +27,7 @@ defmodule ApiBanking.Accounts.Account do
   def changeset(%Account{} = account, attrs) do
     account
     |> cast(attrs, [:password, :user_id])
-    |> foreign_key_constraint(:user_id)
+    |> assoc_constraint(:user)
     |> validate_required([:password, :user_id])
     |> validate_length(:password, min: 8)
     |> put_pass_hash()
