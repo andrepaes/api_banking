@@ -5,7 +5,7 @@ config :api_banking, ApiBanking.Repo,
   username: "andre_paes",
   password: "postgres",
   database: "api_banking_test",
-  hostname: "db1",
+  hostname: "db_test",
   pool: Ecto.Adapters.SQL.Sandbox
 
 # We don't run a server during test. If one is required,
