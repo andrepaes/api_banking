@@ -5,9 +5,9 @@
 
 This api has two main contexts: Accounts and Backoffice. 
 
-Accounts will take care about bank transactions like withdraw and transfer money and the Backoffice is a more operations area that will get some reports and etc.
+Accounts will take care about bank transactions like withdraw and transfer money and the Backoffice take care about operational area that will get some reports and etc.
 
-The balance account never can be negative, the account can't transfer money for yourself and the amount of money to transfer and withdraw can't be negative too
+The balance account can't be negative, the account can't transfer money for yourself and the amount of money to transfer and withdraw can't be negative too
 
 ## Setup
 
@@ -19,10 +19,10 @@ To start the application:
 To start application in iterative mode:
 > make up-iterative
 
-To test the application:
+To run application tests the application:
 > make test
 
-To stop the application:
+To stop the containers:
 > make down
 
 ## Deployment
