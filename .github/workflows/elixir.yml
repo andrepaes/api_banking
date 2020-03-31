@@ -44,7 +44,7 @@ jobs:
           mix deps.get
           
       - run: mix format --check-formatted
-      - run: mix test.github
+      - run: mix coveralls.github
   
   deploy:
     # only run this job if the verify job succeeds
