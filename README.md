@@ -32,3 +32,5 @@ A api example of utilization is provided here:
 [![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=banking-api&uri=https%3A%2F%2Fraw.githubusercontent.com%2Fandrepaes%2Fapi_banking%2Fmaster%2FInsomnia_2020-03-29.json)
 
 The above insomnia config file provide a dev and prod environment, so if you want to try it on localhost, just use the "dev" environment variable or use the "prod" environment variable to consume the public endpoint
+
+**important node: The only endpoints that is not protected by the auth mechanism is: accounts/sign-up, accounts/sign-in, backoffices/sign-up, backoffices/sign-in. To access the others endpoints you need to pass a bearer token provided by the [resource]/sign-in endpoint, just copy the token and paste inside Auth > Bearer Token.**
