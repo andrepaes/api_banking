@@ -7,7 +7,8 @@ jobs:
       matrix:
         otp: [22.2.7]
         elixir: [1.10.1]
-
+    env:
+      GITHUB_TOKEN: ${{ secrets.COVERALLS_TOKEN }}
     services:
       db_test:
         image: postgres:latest
@@ -42,7 +43,7 @@ jobs:
           mix deps.get
           
       - run: mix format --check-formatted
-      - run: mix test
+      - run: mix test.github
   
   deploy:
     # only run this job if the verify job succeeds
