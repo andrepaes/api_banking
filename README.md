@@ -1,5 +1,5 @@
 
-# BankingAPI ![.github/workflows/elixir.yml](https://github.com/andrepaes/api_banking/workflows/.github/workflows/elixir.yml/badge.svg)
+# BankingAPI ![.github/workflows/elixir.yml](https://github.com/andrepaes/api_banking/workflows/.github/workflows/elixir.yml/badge.svg) [![Coverage Status](https://coveralls.io/repos/github/andrepaes/api_banking/badge.svg?branch=master)](https://coveralls.io/github/andrepaes/api_banking?branch=master)
 
 ## Introduction
 
