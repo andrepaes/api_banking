@@ -8,7 +8,5 @@ up:
 
 .PHONY: test
 test:
-	docker-compose build
-	docker-compose up -d app db_test
-	docker-compose exec app sh -c "mix test"
+	docker-compose -f docker-compose-test.yml run --rm app
 	docker-compose down -v --remove-orphans

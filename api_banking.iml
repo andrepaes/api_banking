@@ -208,5 +208,14 @@
     <orderEntry type="library" name="telemetry" level="project" />
     <orderEntry type="library" name="ecto" level="project" />
     <orderEntry type="library" name="db_connection" level="project" />
+    <orderEntry type="library" name="cowlib" level="project" />
+    <orderEntry type="library" name="ranch" level="project" />
+    <orderEntry type="library" name="idna" level="project" />
+    <orderEntry type="library" name="mimerl" level="project" />
+    <orderEntry type="library" name="certifi" level="project" />
+    <orderEntry type="library" name="metrics" level="project" />
+    <orderEntry type="library" name="ssl_verify_fun" level="project" />
+    <orderEntry type="library" name="unicode_util_compat" level="project" />
+    <orderEntry type="library" name="parse_trans" level="project" />
   </component>
 </module>

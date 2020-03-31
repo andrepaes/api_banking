@@ -3,38 +3,23 @@ services:
 
   app:
     build: .
-    command: sh -c "./run.sh"
-    environment: 
+    command: sh -c "./run-test.sh"
+    environment:
       PGUSER: andre_paes
       PGPASSWORD: postgres
-      PGDATABASE: api_banking_dev
+      PGDATABASE: api_banking_test
       PGPORT: 5432
-      PGHOST: db
+      PGHOST: db_test
+      TEST_DB: db_test
     ports:
       - "4000:4000"
     working_dir: /app
     depends_on:
-      - db
+      - db_test
     networks:
       - backend
     volumes:
       - ./:/app
-
-  db:
-    image: postgres:latest
-    ports:
-      - "5432:5432"
-    environment:
-      POSTGRES_USER: andre_paes
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: api_banking_dev
-      PGDATA: /var/lib/postgresql/data/pgdata
-    restart: always
-    volumes:
-      - /.:/app
-      - pgdata_dev:/var/lib/postgresql/data
-    networks:
-      - backend
 
   db_test:
     image: postgres:latest
@@ -50,7 +35,6 @@ services:
       - backend
 volumes:
   pgdata_test:
-  pgdata_dev:
 
 networks:
   backend:
