@@ -14,4 +14,4 @@ up-iterative:
 .PHONY: test
 test:
 	docker-compose -f docker-compose-test.yml run --rm app
-	docker-compose down -v --remove-orphans
+	make down
