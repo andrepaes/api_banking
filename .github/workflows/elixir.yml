@@ -9,6 +9,7 @@ jobs:
         elixir: [1.10.1]
     env:
       GITHUB_TOKEN: ${{ secrets.COVERALLS_TOKEN }}
+      MIX_ENV: test
     services:
       db_test:
         image: postgres:latest
