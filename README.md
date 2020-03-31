@@ -16,6 +16,9 @@ There is a Makefile that call some docker commands to start the application and 
 To start the application:
 > make up
 
+To start application in iterative mode:
+> make up-iterative
+
 To test the application:
 > make test
 

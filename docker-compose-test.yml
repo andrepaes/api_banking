@@ -23,6 +23,8 @@ services:
 
   db_test:
     image: postgres:latest
+    ports:
+    - 5432:5432
     environment:
       POSTGRES_USER: andre_paes
       POSTGRES_PASSWORD: postgres

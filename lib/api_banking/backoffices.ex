@@ -1,6 +1,6 @@
 defmodule ApiBanking.Backoffices do
   @moduledoc """
-  The Backoffices context.
+    The Backoffices context.
   """
 
   import Ecto.Query, warn: false

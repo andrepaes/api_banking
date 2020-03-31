@@ -1,10 +1,15 @@
 .PHONY: down
 down:
-	docker-compose down --remove-orphans
+	docker-compose down -v --remove-orphans
 
 .PHONY: up
 up:
-	docker-compose up db app
+	docker-compose up app db
+
+.PHONY: up-iterative
+up-iterative:
+	docker-compose up -d
+	docker exec -it app bash
 
 .PHONY: test
 test:
